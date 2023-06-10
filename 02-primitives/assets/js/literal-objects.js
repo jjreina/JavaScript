@@ -29,3 +29,23 @@ console.log("The last film", character["last-film"]);
 character.suits.forEach((suit) => {
   console.log({ suit });
 });
+
+// Felete property of literal obgect
+delete character.age;
+
+// Pares key-value
+const entresPares = Object.entries(character);
+console.log(entresPares);
+
+entresPares.forEach((item) => {
+  console.log(item[0], item[1]);
+});
+
+// New Property
+character.age = 40;
+
+// Block literal object
+Object.freeze(character);
+delete character.age;
+
+character.address.cp = 29190;
