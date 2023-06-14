@@ -28,3 +28,13 @@ const createDeck = () => {
 };
 
 createDeck();
+
+const takeCard = () => {
+  if (deck.length === 0) {
+    throw "The deck is empty";
+  }
+  const card = deck.pop();
+  return card;
+};
+
+takeCard();
