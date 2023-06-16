@@ -57,10 +57,21 @@ let createCard = (card) => {
   return imgCard;
 };
 
+let check21 = (btn) => {
+  if (playerPoints > 21) {
+    console.warn("You lose!!!");
+    btn.disabled = true;
+  } else if (playerPoints === 21) {
+    console.warn("You win!!!");
+    btn.disabled = true;
+  }
+};
+
 // Events
 btnNewCard.addEventListener("click", () => {
   let card = takeCard();
   playerPoints = playerPoints + cardValue(card);
   playerScoreTag.innerText = playerPoints;
   playerCardDiv.append(createCard(card));
+  check21(btnNewCard);
 });
