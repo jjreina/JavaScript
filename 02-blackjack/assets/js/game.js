@@ -10,12 +10,15 @@ const SPECIALS_CARDS = ["A", "J", "Q", "K"];
 
 let deck = [];
 let playerPoints = 0;
-let coputerPoints = 0;
+let computerPoints = 0;
 
 // References to HTNL
 const btnNewCard = document.querySelector("#btnNewCard");
-const playerScoreTag = document.querySelector("small");
+const btnStop = document.querySelector("#btnStop");
+const playerScoreTag = document.querySelectorAll("small")[0];
+const computerScoreTag = document.querySelectorAll("small")[1];
 const playerCardDiv = document.querySelector("#player-cards");
+const computerCardDiv = document.querySelector("#computer-cards");
 
 const createDeck = () => {
   // Normal cards, from 2 to 10
@@ -57,13 +60,28 @@ let createCard = (card) => {
   return imgCard;
 };
 
+const computerTurn = (minimunPoints) => {
+  do {
+    let card = takeCard();
+    computerPoints = computerPoints + cardValue(card);
+    computerScoreTag.innerText = computerPoints;
+    computerCardDiv.append(createCard(card));
+    if (minimunPoints > 21) {
+      break;
+    }
+  } while (computerPoints < minimunPoints && minimunPoints <= 21);
+};
+
 let check21 = (btn) => {
   if (playerPoints > 21) {
     console.warn("You lose!!!");
     btn.disabled = true;
+    btnStop.disabled = true;
+    computerTurn(playerPoints);
   } else if (playerPoints === 21) {
     console.warn("You win!!!");
     btn.disabled = true;
+    btnStop.disabled = true;
   }
 };
 
@@ -74,4 +92,10 @@ btnNewCard.addEventListener("click", () => {
   playerScoreTag.innerText = playerPoints;
   playerCardDiv.append(createCard(card));
   check21(btnNewCard);
+});
+
+btnStop.addEventListener("click", () => {
+  btnNewCard.disabled = true;
+  btnStop.disabled = true;
+  computerTurn(playerPoints);
 });
