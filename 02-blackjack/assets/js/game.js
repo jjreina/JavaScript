@@ -15,6 +15,7 @@ let computerPoints = 0;
 // References to HTNL
 const btnNewCard = document.querySelector("#btnNewCard");
 const btnStop = document.querySelector("#btnStop");
+const btnNewGame = document.querySelector("#btnNewGame");
 const playerScoreTag = document.querySelectorAll("small")[0];
 const computerScoreTag = document.querySelectorAll("small")[1];
 const playerCardDiv = document.querySelector("#player-cards");
@@ -70,17 +71,26 @@ const computerTurn = (minimunPoints) => {
       break;
     }
   } while (computerPoints < minimunPoints && minimunPoints <= 21);
+
+  setTimeout(() => {
+    computerPoints === minimunPoints
+      ? alert("Draw!!!")
+      : minimunPoints > 21
+      ? alert("You lose!!!")
+      : computerPoints > 21
+      ? alert("You win!!!")
+      : alert("You lose!!!");
+  }, 40);
 };
 
-let check21 = (btn) => {
+let check21 = () => {
   if (playerPoints > 21) {
-    console.warn("You lose!!!");
-    btn.disabled = true;
+    btnNewCard.disabled = true;
     btnStop.disabled = true;
     computerTurn(playerPoints);
+    winner = true;
   } else if (playerPoints === 21) {
-    console.warn("You win!!!");
-    btn.disabled = true;
+    btnNewCard.disabled = true;
     btnStop.disabled = true;
   }
 };
@@ -91,11 +101,24 @@ btnNewCard.addEventListener("click", () => {
   playerPoints = playerPoints + cardValue(card);
   playerScoreTag.innerText = playerPoints;
   playerCardDiv.append(createCard(card));
-  check21(btnNewCard);
+  check21();
 });
 
 btnStop.addEventListener("click", () => {
   btnNewCard.disabled = true;
   btnStop.disabled = true;
   computerTurn(playerPoints);
+});
+
+btnNewGame.addEventListener("click", () => {
+  btnNewCard.disabled = false;
+  btnStop.disabled = false;
+  playerScoreTag.innerText = 0;
+  computerScoreTag.innerText = 0;
+  deck = [];
+  playerPoints = 0;
+  computerPoints = 0;
+  createDeck();
+  playerCardDiv.innerHTML = "";
+  computerCardDiv.innerHTML = "";
 });
