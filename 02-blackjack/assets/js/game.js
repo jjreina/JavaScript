@@ -23,7 +23,12 @@
   const playerCardDiv = document.querySelector("#player-cards");
   const computerCardDiv = document.querySelector("#computer-cards");
 
+  const startGame = () => {
+    createDeck();
+  };
+
   const createDeck = () => {
+    deck = [];
     // Normal cards, from 2 to 10
     for (let i = 2; i <= 10; i++) {
       TYPES_CARDS.forEach((typeCard) => {
@@ -37,18 +42,14 @@
       });
     });
 
-    deck = _.shuffle(deck);
-    return deck;
+    return _.shuffle(deck);
   };
-
-  createDeck();
 
   const takeCard = () => {
     if (deck.length === 0) {
       throw "The deck is empty";
     }
-    const card = deck.pop();
-    return card;
+    return deck.pop();
   };
 
   const cardValue = (card) => {
@@ -112,14 +113,13 @@
   });
 
   btnNewGame.addEventListener("click", () => {
+    startGame();
     btnNewCard.disabled = false;
     btnStop.disabled = false;
     playerScoreTag.innerText = 0;
     computerScoreTag.innerText = 0;
-    deck = [];
     playerPoints = 0;
     computerPoints = 0;
-    createDeck();
     playerCardDiv.innerHTML = "";
     computerCardDiv.innerHTML = "";
   });
