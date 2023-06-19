@@ -17,8 +17,12 @@
     <div class="row mt-2">
       <div class="col text-center">
         <button id="btnNewGame" class="btn btn-danger">New Game</button>
-        <button id="btnNewCard" class="btn btn-primary">New Card</button>
-        <button id="btnStop" class="btn btn-primary">Stop</button>
+        <button id="btnNewCard" disabled="disabled" class="btn btn-primary">
+          New Card
+        </button>
+        <button id="btnStop" disabled="disabled" class="btn btn-primary">
+          Stop
+        </button>
       </div>
     </div>
     <div class="row container">
@@ -35,5 +39,8 @@
     </div>
     <script src="assets/js/underscore-min.js"></script>
     <script type="text/javascript" src="assets/js/game.js"></script>
+    <script>
+      blackjackModule.newGame();
+    </script>
   </body>
 </html>
