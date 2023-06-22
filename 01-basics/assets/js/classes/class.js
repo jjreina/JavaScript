@@ -1,4 +1,15 @@
 class Person {
+  static _instances = 0;
+
+  static get getInstances() {
+    return Person._instances + " from get";
+  }
+
+  static message() {
+    // No se pueden usar propiedades/atributos de la clase
+    console.log(this.name); // undefined
+  }
+
   name = "";
   code = "";
   phrase = "";
@@ -12,6 +23,7 @@ class Person {
     this.name = name;
     this.code = code;
     this.phrase = phrase;
+    Person._instances++;
   }
 
   get getFavoriteFood() {
@@ -53,3 +65,7 @@ spiderman.setFavoriteFood = "Oranges";
 
 console.log(spiderman.getFavoriteFood);
 console.log(spiderman);
+
+console.log(`Number of insances ${Person._instances}`);
+console.log(`Number of insances ${Person.getInstances}`);
+console.log(Person.message());
