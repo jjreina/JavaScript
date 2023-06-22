@@ -1,5 +1,5 @@
 class Rectangle {
-  #area = 0;
+  #area = 0; // private
   base = 0;
   height = 0;
 
@@ -9,6 +9,7 @@ class Rectangle {
     this.#area = base * height;
   }
 
+  // private
   #calcularArea() {
     return this.#area * 2;
   }
