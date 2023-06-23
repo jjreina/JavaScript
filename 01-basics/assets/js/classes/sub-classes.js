@@ -44,28 +44,21 @@ class Person {
   }
 }
 
-let spiderman = new Person(
+class Hero extends Person {
+  clan = "not clan";
+  constructor(name, code, phrase) {
+    super(name, code, phrase);
+    this.clan = "Avengers";
+  }
+}
+
+let spiderman = new Hero(
   "Peter Parker",
   "Spiderman",
   "With great power comes great responsibility"
 );
 
-let ironman = new Person("Tony Stark", "Ironman", "I´m Ironman");
+// let spiderman = new Hero();
 
 console.log(spiderman);
-console.log(ironman);
-
-spiderman.whoAmI();
-ironman.whoAmI();
-
-spiderman.myPhrase();
-ironman.myPhrase();
-
-spiderman.setFavoriteFood = "Oranges";
-
-console.log(spiderman.getFavoriteFood);
-console.log(spiderman);
-
-console.log(`Number of insances ${Person._instances}`);
-console.log(`Number of insances ${Person.getInstances}`);
-console.log(Person.message());
+console.log(Hero._instances);
