@@ -1,6 +1,17 @@
 import _ from "underscore";
 
+/**
+ *
+ * @param {Array<String>} typeCards Example ["C", "D", "H", "S"]
+ * @param {Array<String>} specialCards Example ["A", "J", "Q", "K"]
+ * @returns {Array<String>} returns a new cards deck shuffled
+ */
 export const createDeck = (typeCards, specialCards) => {
+  if (!typeCards || typeCards.length === 0)
+    throw new Error("typeCards is mandatory");
+  if (!specialCards || specialCards.length === 0)
+    throw new Error("specialCards is mandatory");
+
   let deck = [];
   // Normal cards, from 2 to 10
   for (let i = 2; i <= 10; i++) {
