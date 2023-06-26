@@ -1,7 +1,5 @@
 import _ from "underscore";
-import { createDeck } from "./usecases/create-deck";
-import { takeCard } from "./usecases/take-card";
-import { cardValue } from "./usecases/card-value";
+import { cardValue, createDeck, takeCard } from "./usecases";
 
 /**
  * 2C = Two of Clubs
