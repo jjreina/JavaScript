@@ -1,5 +1,7 @@
 import _ from "underscore";
 import { createDeck } from "./usecases/create-deck";
+import { takeCard } from "./usecases/take-card";
+import { cardValue } from "./usecases/card-value";
 
 /**
  * 2C = Two of Clubs
@@ -37,18 +39,6 @@ const blackjackModule = (() => {
     computerCardDiv.innerHTML = "";
   };
 
-  const takeCard = () => {
-    if (deck.length === 0) {
-      throw "The deck is empty";
-    }
-    return deck.pop();
-  };
-
-  const cardValue = (card) => {
-    let value = card.substring(0, card.length - 1);
-    return isNaN(value) ? (value === "A" ? 11 : 10) : value * 1; // to convert to number
-  };
-
   let createCard = (card) => {
     let imgCard = document.createElement("img");
     imgCard.classList.add("my-card");
@@ -78,7 +68,7 @@ const blackjackModule = (() => {
   const computerTurn = (minimunPoints) => {
     let computerPoints = 0;
     do {
-      let card = takeCard();
+      let card = takeCard(deck);
       computerPoints = accumulatePounts(playerPointsArray.length - 1, card);
       computerCardDiv.append(createCard(card));
     } while (computerPoints < minimunPoints && minimunPoints <= 21);
@@ -99,7 +89,7 @@ const blackjackModule = (() => {
 
   // Events
   btnNewCard.addEventListener("click", () => {
-    let card = takeCard();
+    let card = takeCard(deck);
     let playerPoints = accumulatePounts(0, card);
     playerCardDiv.append(createCard(card));
     check21(playerPoints);

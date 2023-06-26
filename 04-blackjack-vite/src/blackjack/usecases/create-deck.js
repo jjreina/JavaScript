@@ -1,7 +1,7 @@
 import _ from "underscore";
 
 /**
- *
+ * Creates a new cards deck shuffled
  * @param {Array<String>} typeCards Example ["C", "D", "H", "S"]
  * @param {Array<String>} specialCards Example ["A", "J", "Q", "K"]
  * @returns {Array<String>} returns a new cards deck shuffled
