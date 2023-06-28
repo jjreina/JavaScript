@@ -27,7 +27,6 @@ export const computerTurn = (
   playerPointsArray,
   playersScoreTag
 ) => {
-  if (minimunPoints ?? true) throw new Error("Minimun points is mandatory");
   if (!deck) throw new Error("Deck is mandatory");
   if (!computerCardDiv) throw new Error("Card HTML Div is mandatory");
 
