@@ -1,5 +1,11 @@
 import _ from "underscore";
-import { cardValue, createDeck, takeCard } from "./usecases";
+import {
+  createDeck,
+  takeCard,
+  accumulatePounts,
+  computerTurn,
+  createCard,
+} from "./usecases";
 
 /**
  * 2C = Two of Clubs
@@ -37,48 +43,17 @@ const blackjackModule = (() => {
     computerCardDiv.innerHTML = "";
   };
 
-  let createCard = (card) => {
-    let imgCard = document.createElement("img");
-    imgCard.classList.add("my-card");
-    imgCard.src = `assets/cards/${card}.png`;
-    return imgCard;
-  };
-
-  // turn - The last position is the computer player
-  const accumulatePounts = (turn, card) => {
-    playerPointsArray[turn] = playerPointsArray[turn] + cardValue(card);
-    playersScoreTag[turn].innerText = playerPointsArray[turn];
-    return playerPointsArray[turn];
-  };
-
-  const checkWinner = (computerPoints, minimunPoints) => {
-    setTimeout(() => {
-      computerPoints === minimunPoints
-        ? alert("Draw!!!")
-        : minimunPoints > 21
-        ? alert("You lose!!!")
-        : computerPoints > 21
-        ? alert("You win!!!")
-        : alert("You lose!!!");
-    }, 40);
-  };
-
-  const computerTurn = (minimunPoints) => {
-    let computerPoints = 0;
-    do {
-      let card = takeCard(deck);
-      computerPoints = accumulatePounts(playerPointsArray.length - 1, card);
-      computerCardDiv.append(createCard(card));
-    } while (computerPoints < minimunPoints && minimunPoints <= 21);
-
-    checkWinner(computerPoints, minimunPoints);
-  };
-
   let check21 = (playerPoints) => {
     if (playerPoints > 21) {
       btnNewCard.disabled = true;
       btnStop.disabled = true;
-      computerTurn(playerPoints);
+      computerTurn(
+        playerPoints,
+        deck,
+        computerCardDiv,
+        playerPointsArray,
+        playersScoreTag
+      );
     } else if (playerPoints === 21) {
       btnNewCard.disabled = true;
       btnStop.disabled = true;
@@ -88,7 +63,12 @@ const blackjackModule = (() => {
   // Events
   btnNewCard.addEventListener("click", () => {
     let card = takeCard(deck);
-    let playerPoints = accumulatePounts(0, card);
+    let playerPoints = accumulatePounts(
+      0,
+      card,
+      playerPointsArray,
+      playersScoreTag
+    );
     playerCardDiv.append(createCard(card));
     check21(playerPoints);
   });
@@ -96,7 +76,13 @@ const blackjackModule = (() => {
   btnStop.addEventListener("click", () => {
     btnNewCard.disabled = true;
     btnStop.disabled = true;
-    computerTurn(playerPointsArray[0]);
+    computerTurn(
+      playerPointsArray[0],
+      deck,
+      computerCardDiv,
+      playerPointsArray,
+      playersScoreTag
+    );
   });
 
   btnNewGame.addEventListener("click", () => {
