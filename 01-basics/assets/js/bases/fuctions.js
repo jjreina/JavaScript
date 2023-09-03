@@ -25,3 +25,19 @@ const addTwoArrowLight = (a, b) => a + b;
 console.log(addTwo(2, 6));
 console.log(addTwoArrow(2, 6));
 console.log(addTwoArrowLight(2, 6));
+
+nombre = "Juan";
+const persona = {
+  nombre: "Agustin",
+
+  decirNombre: function () {
+    return this.nombre;
+  },
+
+  decirNombreFuncionFlecha: () => {
+    return this.nombre;
+  },
+};
+
+console.log(persona.decirNombre());
+console.log(persona.decirNombreFuncionFlecha());
